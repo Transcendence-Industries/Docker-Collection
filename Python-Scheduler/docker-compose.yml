@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  scheduler:
+    image: ghcr.io/transcendence-industries/docker-collection/python-scheduler:latest
+    container_name: python-scheduler  # Change container name
+    restart: on-failure
+    volumes:
+      - data:/data
+
+volumes:
+  data:
+    external: true
+    name: data  # Change volume name
