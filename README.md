@@ -1,2 +1,3 @@
-# Docker-Collection
-A collection of docker container templates.
+# Docker Collection
+
+> A collection of docker container templates.
