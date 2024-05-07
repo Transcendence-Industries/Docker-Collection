@@ -1,7 +1,7 @@
 version: "3"
 
 services:
-  portfolio:
+  website:
     image: ghcr.io/transcendence-industries/docker-collection/node-website:latest
     container_name: node-website  # Change container name
     restart: unless-stopped
