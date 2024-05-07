@@ -2,7 +2,7 @@
 
 ## Node Website
 
-> Simple server for hosting a Node.JS based website.
+> Simple server for hosting Node.JS based websites.
 
 - Setup:
     - Change the marked settings in the `docker-compose.yml` file.
