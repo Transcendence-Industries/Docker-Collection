@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  website:
+    image: ghcr.io/transcendence-industries/docker-collection/flask-website:latest
+    container_name: flask-website  # Change container name
+    restart: unless-stopped
+    volumes:
+      - data:/app
+    ports:
+      - 8080:8080  # Change port (HOST:CONTAINER)
+
+volumes:
+  data:
+    external: true
+    name: data  # Change volume name
