@@ -2,7 +2,7 @@ version: "3"
 
 services:
   scheduler:
-    image: ghcr.io/transcendence-industries/docker-collection/python-scheduler:latest
+    image: python-scheduler:latest  # Change version
     container_name: python-scheduler  # Change container name
     restart: on-failure
     volumes:

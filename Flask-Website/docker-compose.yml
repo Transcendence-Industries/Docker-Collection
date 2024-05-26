@@ -2,7 +2,7 @@ version: "3"
 
 services:
   website:
-    image: ghcr.io/transcendence-industries/docker-collection/flask-website:latest
+    image: flask-website:latest  # Change version
     container_name: flask-website  # Change container name
     restart: unless-stopped
     volumes:
