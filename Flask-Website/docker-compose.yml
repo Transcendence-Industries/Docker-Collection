@@ -2,15 +2,18 @@ version: "3"
 
 services:
   website:
-    image: flask-website:latest  # Change version
     container_name: flask-website  # Change container name
+    image: flask-website:latest  # Change version
     restart: unless-stopped
+    environment:  # Change IDs
+      PUID: 1000
+      PGID: 1000
     volumes:
-      - data:/app
+      - vol_data:/app
     ports:
-      - 8080:8080  # Change port (HOST:CONTAINER)
+      - 8080:8080  # Change host-port (HOST:CONTAINER)
 
 volumes:
-  data:
+  vol_data:
     external: true
     name: data  # Change volume name
