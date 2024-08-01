@@ -1,0 +1,27 @@
+version: "3"
+
+services:
+  immich-albums:
+    container_name: immich-albums
+    image: immich-albums:latest  # Change version
+    restart: no
+    environment:  # Change IDs
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - type: bind
+        source: /mnt/dir  # Change path
+        target: /media/pictures
+        read_only: true
+      - type: bind
+        source: /mnt/dir  # Change path
+        target: /media/videos
+        read_only: true
+    networks:  # Change network
+      - proxy-manager
+    env_file:
+      - stack.env
+
+networks:
+  proxy-manager:  # Change network
+    external: true

@@ -10,6 +10,15 @@
     - Use `docker compose up -d` to deploy the container.
     - Use `docker cp <SRC_DIR> <CONTAINER_NAME>:/app` to copy the website's source files to the previous deployed docker container.
 
+## Immich Albums
+
+> Organizer for matching directories to albums on Immich.
+
+- Setup:
+    - Change the marked settings in the `docker-compose.yml` file.
+    - Copy the `stack.env.sample` and change all neccessary settings.
+    - Use `docker compose up -d` to deploy the container.
+
 ## Node Website
 
 > Simple server for hosting Node.JS based websites.
