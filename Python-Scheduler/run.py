@@ -4,9 +4,9 @@ import logging
 import subprocess
 from datetime import datetime
 
-LOG_PATH = "./logs"
-SCRIPT_PATH = "./scripts"
-CONFIG_FILE = "./config.json"
+LOG_PATH = "/data/logs"
+SCRIPT_PATH = "/data/scripts"
+CONFIG_FILE = "/data/config.json"
 
 
 def send_email(title, conent):
@@ -53,8 +53,6 @@ if __name__ == "__main__":
     logging.info("Loading configuration from JSON file...")
     with open(CONFIG_FILE, "r") as file:
         data = json.load(file)
-
-    print(data)
 
     logging.info(f"Starting scheduler for {len(data)} scripts.")
     for script in data:
