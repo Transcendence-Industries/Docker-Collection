@@ -10,8 +10,8 @@ services:
       PGID: 1000
     volumes:  # Change volume
        - vol_data:/data
-    networks:  # Change network
-      - proxy-manager
+    ports:
+      - 8501:8501  # Change host-port (HOST:CONTAINER)
     env_file:
       - stack.env
   playwright-chrome:
@@ -32,15 +32,9 @@ services:
       DEFAULT_BLOCK_ADS: true
       DEFAULT_STEALTH: true
       DEFAULT_IGNORE_HTTPS_ERRORS: true
-    networks:
-      - proxy-manager
     env_file:
       - stack.env
 
 volumes:
   vol_data:  # Change volume
     name: bluray-sales_data
-
-networks:
-  proxy-manager:  # Change network
-    external: true

@@ -2,7 +2,7 @@ version: "3"
 
 services:
   immich-albums:
-    container_name: immich-albums
+    container_name: immich-albums  # Change container name
     image: immich-albums:latest  # Change version
     restart: no
     environment:  # Change IDs
@@ -17,11 +17,5 @@ services:
         source: /mnt/dir  # Change path
         target: /media/videos
         read_only: true
-    networks:  # Change network
-      - proxy-manager
     env_file:
       - stack.env
-
-networks:
-  proxy-manager:  # Change network
-    external: true
