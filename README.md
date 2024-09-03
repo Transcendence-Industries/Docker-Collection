@@ -1,5 +1,14 @@
 # Docker Collection
 
+## BluRay Sales
+
+> Tool for checking availabilities and sales of Blu-Rays at multiple shops.
+
+- Setup:
+    - Change the marked settings in the `docker-compose.yml` file.
+    - Copy the `stack.env.sample` and change all neccessary settings.
+    - Use `docker compose up -d` to deploy the container.
+
 ## Flask Website
 
 > Simple server for hosting Flask based websites.
