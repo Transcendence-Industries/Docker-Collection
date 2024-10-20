@@ -229,3 +229,6 @@ def main():
     if st.button("Delete"):
         if delete_selection:
             scraper.delete_json(delete_selection)
+
+
+main()

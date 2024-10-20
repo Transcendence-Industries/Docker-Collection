@@ -1,7 +1,6 @@
 import logging
-
-import interface
+from streamlit.web import cli
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.INFO)
-    interface.main()
+    cli.main_run(["interface.py", "--server.port", "8501", "--browser.gatherUsageStats", "false"])
