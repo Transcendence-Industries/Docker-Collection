@@ -7,14 +7,10 @@ from fake_useragent import UserAgent
 
 import scraper_bluray_disc, scraper_amazon, scraper_jpc, scraper_media_dealer
 
-# DATA_PATH = str(os.environ["DATA_PATH"])
-DATA_PATH = "./data"
-# PLAYWRIGHT_DRIVER = str(os.environ["PLAYWRIGHT_DRIVER"])
-PLAYWRIGHT_DRIVER = "ws://127.0.0.1:3000"
-# PLAYWRIGHT_RETRIES = int(os.environ["PLAYWRIGHT_RETRIES"])
-PLAYWRIGHT_RETRIES = 3
-# PLAYWRIGHT_TIMEOUT = int(os.environ["PLAYWRIGHT_TIMEOUT"])
-PLAYWRIGHT_TIMEOUT = 10000
+DATA_PATH = str(os.environ["DATA_PATH"])
+PLAYWRIGHT_DRIVER = str(os.environ["PLAYWRIGHT_DRIVER"])
+PLAYWRIGHT_RETRIES = int(os.environ["PLAYWRIGHT_RETRIES"])
+PLAYWRIGHT_TIMEOUT = int(os.environ["PLAYWRIGHT_TIMEOUT"])
 
 BLURAY_DISC_FILE = "BluRay-Disc.json"
 AMAZON_FILE = "Amazon.json"
