@@ -2,7 +2,7 @@ version: "3"
 
 services:
   bluray-sales:
-    container_name: bluray-sales
+    container_name: bluray-sales_main
     image: bluray-sales:latest  # Change version
     restart: unless-stopped
     environment:  # Change IDs
@@ -15,7 +15,7 @@ services:
     env_file:
       - stack.env
   playwright-chrome:
-    container_name: playwright-chrome
+    container_name: bluray-sales_playwright
     image: 'browserless/chrome'
     restart: unless-stopped
     environment:  # Change IDs
