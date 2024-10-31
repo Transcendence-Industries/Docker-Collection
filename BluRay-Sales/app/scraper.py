@@ -19,7 +19,7 @@ MEDIA_DEALER_FILE = "Media-Dealer.json"
 
 
 def init_scraper(instance):
-    logging.info("Connection scraper...")
+    logging.info("Connecting scraper...")
     ua = UserAgent()
     user_agent = ua.firefox  # Universal: 'ua.random'
 
