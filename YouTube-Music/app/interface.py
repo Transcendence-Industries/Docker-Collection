@@ -1,8 +1,21 @@
+import os
 import streamlit as st
 
 import scraper
 
 CACHE_FILES = (scraper.YOUTUBE_CHANNEL_FILE, scraper.YOUTUBE_PLAYLIST_FILE, scraper.YOUTUBE_HIERARCHY_FILE)
+
+
+def load_file(name):
+    file_path = os.path.join(scraper.DATA_PATH, name)
+
+    try:
+        with open(file_path, "rb") as file:
+            content = file.read()
+    except:
+        content = None
+
+    return content
 
 
 def main():
@@ -56,12 +69,23 @@ def main():
 
     # ------------------------------
 
-    st.header("Delete cache")
-    delete_selection = st.selectbox("Choose a file", CACHE_FILES)
+    st.header("Manage cache")
+    file_selection = st.selectbox("Choose a file", CACHE_FILES)
 
     if st.button("Delete"):
-        if delete_selection:
-            scraper.delete_json(delete_selection)
+        if file_selection:
+            scraper.delete_json(file_selection)
+
+    if file_selection:
+        file_data = load_file(file_selection)
+        if file_data:
+            st.download_button(
+                label="Download",
+                data=file_data,
+                file_name=file_selection
+            )
+        else:
+            st.warning("Download unavailable!")
 
 
 main()
