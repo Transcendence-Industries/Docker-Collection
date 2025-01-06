@@ -9,7 +9,7 @@ services:
       PUID: 1000
       PGID: 1000
     volumes:  # Change volume
-       - vol_data:/data
+      - vol_data:/data
     ports:
       - 8501:8501  # Change host-port (HOST:CONTAINER)
     env_file:
