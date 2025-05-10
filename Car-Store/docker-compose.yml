@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  car-store:
+    container_name: car-store_main
+    image: car-store:latest  # Change version
+    restart: unless-stopped
+    environment:  # Change IDs
+      PUID: 1000
+      PGID: 1000
+    volumes:  # Change volume
+      - vol_data:/data
+    ports:
+      - 8501:8501  # Change host-port (HOST:CONTAINER)
+    env_file:
+      - stack.env
+  playwright-chrome:
+    container_name: car-store_playwright
+    image: 'browserless/chrome'
+    restart: unless-stopped
+    environment:  # Change IDs
+      UID: 1000
+      PGID: 1000
+      SCREEN_WIDTH: 1280
+      SCREEN_HEIGHT: 720
+      SCREEN_DEPTH: 16
+      ENABLE_DEBUGGER: false
+      PREBOOT_CHROME: true
+      CONNECTION_TIMEOUT: 300000
+      MAX_CONCURRENT_SESSIONS: 5
+      CHROME_REFRESH_TIME: 600000
+      DEFAULT_BLOCK_ADS: true
+      DEFAULT_STEALTH: true
+      DEFAULT_IGNORE_HTTPS_ERRORS: true
+    env_file:
+      - stack.env
+
+volumes:
+  vol_data:  # Change volume
+    name: car-store_data
