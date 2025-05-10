@@ -9,6 +9,15 @@
     - Copy the `stack.env.sample` and change all neccessary settings.
     - Use `docker compose up -d` to deploy the container.
 
+## Car Store
+
+> Tool for checking inventories of car manufacturers.
+
+- Setup:
+    - Change the marked settings in the `docker-compose.yml` file.
+    - Copy the `stack.env.sample` and change all neccessary settings.
+    - Use `docker compose up -d` to deploy the container.
+
 ## Immich Albums
 
 > Organizer for matching directories to albums on Immich.
