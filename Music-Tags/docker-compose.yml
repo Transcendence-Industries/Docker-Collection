@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  music-tags:
+    container_name: music-tags  # Change container name
+    image: music-tags:latest  # Change version
+    restart: no
+    environment:  # Change IDs
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - type: bind
+        source: /mnt/dir  # Change path
+        target: /media/music
+        read_only: false
+    env_file:
+      - stack.env

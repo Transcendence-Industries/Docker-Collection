@@ -27,6 +27,15 @@
     - Copy the `stack.env.sample` and change all neccessary settings.
     - Use `docker compose up -d` to deploy the container.
 
+## Music Tags
+
+> Organizer for setting metdata of MP3 files.
+
+- Setup:
+    - Change the marked settings in the `docker-compose.yml` file.
+    - Copy the `stack.env.sample` and change all neccessary settings.
+    - Use `docker compose up -d` to deploy the container.
+
 ## Node Website
 
 > Simple server for hosting Node.JS based websites.
