@@ -57,6 +57,15 @@
     - Create a `config.json` file for the configuration.
     - Use `docker cp <CONFIG_PATH> <CONTAINER_NAME>:/app` to copy the config file to the previous deployed docker container.
 
+## RSS AI
+
+> AI agent for prioritzing and summarizing articles from a FreshRSS feed.
+
+- Setup:
+    - Change the marked settings in the `docker-compose.yml` file.
+    - Copy the `stack.env.sample` and change all neccessary settings.
+    - Use `docker compose up -d` to deploy the container.
+
 ## YouTube Music
 
 > Tool for creating a hierarchy of music-channels on YouTube.

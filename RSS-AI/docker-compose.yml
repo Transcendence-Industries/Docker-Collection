@@ -1,0 +1,31 @@
+version: "3"
+
+services:
+  feed:
+    container_name: rss-ai_feed
+    image: rss-ai_feed:latest  # Change version
+    restart: unless-stopped
+    environment:  # Change IDs
+      PUID: 1000
+      PGID: 1000
+    volumes:  # Change volume
+      - vol_data:/data
+    ports:
+      - 5000:5000  # Change host-port (HOST:CONTAINER)
+    env_file:
+      - stack.env
+  filter:
+    container_name: rss-ai_filter
+    image: rss-ai_filter:latest  # Change version
+    restart: no
+    environment:  # Change IDs
+      PUID: 1000
+      PGID: 1000
+    volumes:  # Change volume
+      - vol_data:/data
+    env_file:
+      - stack.env
+
+volumes:
+  vol_data:  # Change volume
+    name: rss-ai_data
