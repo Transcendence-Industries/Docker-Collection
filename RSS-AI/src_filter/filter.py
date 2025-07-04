@@ -99,8 +99,8 @@ def main_run():
         logging.debug(f"Processing day '{dt.date()}'...")
 
         for group in groups:
-            existing = next(a for a in existing_articles if a["group_id"] == group["id"]
-                            and datetime.fromtimestamp(a["datetime"]).date() == dt.date())
+            existing = next((a for a in existing_articles if a["group_id"] == group["id"]
+                            and datetime.fromtimestamp(a["datetime"]).date() == dt.date()), None)
 
             if existing:
                 logging.debug(f"> Recycling group '{group['title']}'...")

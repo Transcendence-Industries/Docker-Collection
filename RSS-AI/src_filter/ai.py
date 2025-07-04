@@ -28,7 +28,9 @@ def summarize_article(article):
     logging.debug(f"Summarizing article '{title}'...")
 
     prompt = f"""
-    Fasse den folgenden News-Artikel in einem Absatz zusammen:
+    Fasse den folgenden News-Artikel in einem Absatz zusammen.
+    Verwende die gleiche Sprache wie der original Text.
+    Gib nur die Zusammenfassung zurück.
 
     {content}
     """
