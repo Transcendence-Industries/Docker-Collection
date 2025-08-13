@@ -1,0 +1,27 @@
+{
+    "api_token": "CHANGE_ME",
+    "zones": [
+        {
+            "zone_id": "CHANGE_ME",
+            "subdomains": [
+                {
+                    "name": "",
+                    "type": "A",
+                    "content": "<PUBLIC_IP>",
+                    "proxied": true
+                },
+                {
+                    "name": "",
+                    "type": "MX",
+                    "content": "\"v=spf1 ip4:<PUBLIC_IP> include:_spf.mx.cloudflare.net ~all\""
+                },
+                {
+                    "...": "..."
+                }
+            ]
+        },
+        {
+            "...": "..."
+        }
+    ]
+}
