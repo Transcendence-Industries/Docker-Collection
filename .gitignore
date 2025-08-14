@@ -2,4 +2,5 @@ __pycache__/
 venv/
 
 .DS_Store
-stack.env
+dev.py
+*.env

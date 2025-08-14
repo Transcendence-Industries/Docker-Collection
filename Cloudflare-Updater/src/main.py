@@ -180,7 +180,7 @@ def handle_stop(signum, frame):
     logging.info(f"Received signal {signum}. Stopping gracefully...")
 
 
-if __name__ == "__main__":
+def main_entrypoint():
     logging.basicConfig(level=logging.DEBUG if DEBUG else logging.INFO)
 
     run_update()
@@ -196,3 +196,7 @@ if __name__ == "__main__":
 
     logging.info("Stopped.")
     sys.exit(0)
+
+
+if __name__ == "__main__":
+    main_entrypoint()

@@ -1,0 +1,14 @@
+version: "3"
+
+services:
+  cloudflare-updater:
+    container_name: cloudflare-updater  # Change container name
+    image: cloudflare-updater:latest  # Change version
+    restart: unless-stopped
+    environment:  # Change IDs
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - /path_to_config/config.json:/data/config.json
+    env_file:
+      - stack.env

@@ -2,6 +2,7 @@ import os
 import logging
 from mutagen.id3 import ID3, TIT2, TPE1, TALB, ID3NoHeaderError
 
+DEBUG = bool(os.environ["DEBUG"])
 SOURCE_PATH_MUSIC = str(os.environ["SOURCE_PATH_MUSIC"])
 INCLUDED_DIRS = str(os.environ["INCLUDED_DIRS"]).split(",")
 FORCE_DELETION = str(os.environ["FORCE_DELETION"]) in ("True", "true")
@@ -91,8 +92,8 @@ def check_and_set_tags(root_path):
                     pass
 
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+def main_entrypoint():
+    logging.basicConfig(level=logging.DEBUG if DEBUG else logging.INFO)
     logging.info("----- START -----")
 
     for dir in INCLUDED_DIRS:
@@ -104,3 +105,7 @@ if __name__ == "__main__":
             logging.warning(f"Invalid directory '{dir}'!")
 
     logging.info("----- END -----")
+
+
+if __name__ == "__main__":
+    main_entrypoint()

@@ -3,12 +3,11 @@ import json
 import logging
 import requests
 
+DEBUG = bool(os.environ["DEBUG"])
 IMMICH_HOST = str(os.environ["IMMICH_HOST"])
 IMMICH_API_KEY = str(os.environ["IMMICH_API_KEY"])
-
 SOURCE_PATH_PICTURES = str(os.environ["SOURCE_PATH_PICTURES"])
 SOURCE_PATH_VIDEOS = str(os.environ["SOURCE_PATH_VIDEOS"])
-
 INCLUDED_DIRECTORIES = str(os.environ["INCLUDED_DIRECTORIES"]).split(",")
 INCLUDED_USERS = str(os.environ["INCLUDED_USERS"]).split(",")
 DELETE_ALL_ALBUMS = str(os.environ["DELETE_ALL_ALBUMS"]) in ("True", "true")
@@ -23,7 +22,7 @@ def request_api(url, payload={}, method="GET"):
     }
 
     if method == "POST" or method == "PUT":
-        headers["Content-Type"] =  "application/json"
+        headers["Content-Type"] = "application/json"
     elif method == "DELETE":
         del headers["Accept"]
 
@@ -37,10 +36,12 @@ def request_api(url, payload={}, method="GET"):
         try:
             return json.loads(response.text)
         except:
-            logging.error(f"Error while parsing JSON repsonse from request {method}:{url}")
+            logging.error(
+                f"Error while parsing JSON repsonse from request {method}:{url}")
             return None
     else:
-        logging.error(f"Error with code {response.status_code} for request {method}:{url} - {response.text}")
+        logging.error(
+            f"Error with code {response.status_code} for request {method}:{url} - {response.text}")
         return None
 
 
@@ -80,7 +81,7 @@ def get_immich_albums(withAssets=False):
                 "assets": [asset["id"] for asset in response2["assets"]]
             }
         else:
-            albums[album["albumName"]] = { "id": album["id"] }
+            albums[album["albumName"]] = {"id": album["id"]}
 
     logging.debug(f"Existing immich-albums: {albums}")
     logging.info(f"Found {len(albums)} immich-albums.")
@@ -95,24 +96,29 @@ def get_source_albums():
         logging.error(f"Path {SOURCE_PATH_VIDEOS} is not existent!")
         exit(1)
 
-    picture_dirs = [entry for entry in os.listdir(SOURCE_PATH_PICTURES) if os.path.isdir(os.path.join(SOURCE_PATH_PICTURES, entry))]
-    video_dirs = [entry for entry in os.listdir(SOURCE_PATH_VIDEOS) if os.path.isdir(os.path.join(SOURCE_PATH_VIDEOS, entry))]
+    picture_dirs = [entry for entry in os.listdir(
+        SOURCE_PATH_PICTURES) if os.path.isdir(os.path.join(SOURCE_PATH_PICTURES, entry))]
+    video_dirs = [entry for entry in os.listdir(
+        SOURCE_PATH_VIDEOS) if os.path.isdir(os.path.join(SOURCE_PATH_VIDEOS, entry))]
     picture_albums = {}
     video_albums = {}
 
     for p_dir in picture_dirs:
         for dir_path, dir_names, file_names in os.walk(os.path.join(SOURCE_PATH_PICTURES, p_dir)):
             if os.path.basename(dir_path) in INCLUDED_DIRECTORIES:
-                picture_albums[p_dir] = [os.path.join(dir_path, file_name) for file_name in file_names]
+                picture_albums[p_dir] = [os.path.join(
+                    dir_path, file_name) for file_name in file_names]
 
     for v_dir in video_dirs:
         for dir_path, dir_names, file_names in os.walk(os.path.join(SOURCE_PATH_VIDEOS, v_dir)):
             if os.path.basename(dir_path) in INCLUDED_DIRECTORIES:
-                video_albums[v_dir] = [os.path.join(dir_path, file_name) for file_name in file_names]
+                video_albums[v_dir] = [os.path.join(
+                    dir_path, file_name) for file_name in file_names]
 
     logging.debug(f"Source (picture) albums: {picture_albums}")
     logging.debug(f"Source (video) albums: {video_albums}")
-    logging.info(f"Found {len(picture_albums)} picture-albums and {len(video_albums)} video-albums.")
+    logging.info(
+        f"Found {len(picture_albums)} picture-albums and {len(video_albums)} video-albums.")
     return picture_albums, video_albums  # { albumName: [fileFullPath] }
 
 
@@ -123,7 +129,7 @@ def create_missing_albums(users, immich_albums, picture_albums, video_albums):
         if album_name not in immich_albums.keys():
             payload = {
                 "albumName": album_name,
-                "albumUsers": [{ "role": "editor", "userId": user} for user in users],
+                "albumUsers": [{"role": "editor", "userId": user} for user in users],
                 "assetIDs": [],
                 "description": ""
             }
@@ -153,7 +159,8 @@ def update_album_content(immich_albums, picture_albums, video_albums):
                 "originalPath": asset_path
             }
 
-            response = request_api("/api/search/metadata", payload=payload, method="POST")
+            response = request_api(
+                "/api/search/metadata", payload=payload, method="POST")
             asset_id = None
 
             try:
@@ -161,20 +168,24 @@ def update_album_content(immich_albums, picture_albums, video_albums):
                     asset_id = response["assets"]["items"][0]["id"]
                     logging.debug(f"Found ID for asset '{asset_path}'.")
                 else:
-                    logging.warning(f"Found more/less matches for asset '{asset_path}'.")
+                    logging.warning(
+                        f"Found more/less matches for asset '{asset_path}'.")
             except:
-                logging.warning(f"Error during search for asset '{asset_path}'.")
+                logging.warning(
+                    f"Error during search for asset '{asset_path}'.")
 
             if asset_id and asset_id not in album_assets:
                 new_assets.append(asset_id)
 
         payload = {
-            "ids" : new_assets
+            "ids": new_assets
         }
 
-        request_api("/api/albums/" + album_id + "/assets", payload=payload, method="PUT")
+        request_api("/api/albums/" + album_id + "/assets",
+                    payload=payload, method="PUT")
         logging.debug(f"Added assets '{new_assets}' to album '{album_name}'.")
-        logging.info(f"Added {len(new_assets)} assets to album '{album_name}'.")
+        logging.info(
+            f"Added {len(new_assets)} assets to album '{album_name}'.")
 
 
 def delete_albums(immich_albums):
@@ -184,8 +195,8 @@ def delete_albums(immich_albums):
     logging.info(f"Deleted {len(immich_albums)} albums.")
 
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+def main_entrypoint():
+    logging.basicConfig(level=logging.DEBUG if DEBUG else logging.INFO)
     logging.info("----- START -----")
 
     i_albums = get_immich_albums()
@@ -200,3 +211,7 @@ if __name__ == "__main__":
     update_album_content(i_albums, p_albums, v_albums)
 
     logging.info("----- END -----")
+
+
+if __name__ == "__main__":
+    main_entrypoint()
