@@ -4,6 +4,8 @@ import logging
 import subprocess
 from datetime import datetime
 
+DEBUG = bool(os.environ["DEBUG"])
+
 LOG_PATH = "/data/logs"
 SCRIPT_PATH = "/data/scripts"
 CONFIG_FILE = "/data/config.json"
@@ -41,14 +43,15 @@ def run_script(script, args):
 
         # Wait for termination
         exit_code = process.wait()
-        logging.info(f"Finished execution of script '{script}' with exit-code {exit_code}.")
+        logging.info(
+            f"Finished execution of script '{script}' with exit-code {exit_code}.")
     except Exception as e:
         exit_code = -1
         logging.warning(f"Error during execution of '{script}': {str(e)}")
 
 
-if __name__ == "__main__":
-    logging.basicConfig(level=logging.INFO)
+def main_entrypoint():
+    logging.basicConfig(level=logging.DEBUG if DEBUG else logging.INFO)
 
     logging.info("Loading configuration from JSON file...")
     with open(CONFIG_FILE, "r") as file:
@@ -60,3 +63,7 @@ if __name__ == "__main__":
             run_script(script, run["args"])
 
     logging.info("Completed scheduler.")
+
+
+if __name__ == "__main__":
+    main_entrypoint()
